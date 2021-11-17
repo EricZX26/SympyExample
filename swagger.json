@@ -1,0 +1,124 @@
+{
+    "swagger": "2.0",
+    "host":"localhost:5000",
+    "basePath": "/",
+    "schemes":["http"],
+    "paths": {
+        "/sympy/compare": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/result_model"
+                        }
+                    }
+                },
+                "operationId": "compare",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/compare_fields"
+                        }
+                    }
+                ],
+                "tags": [
+                    "sympy"
+                ]
+            }
+        },
+        "/sympy/factor": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/result_model"
+                        }
+                    }
+                },
+                "operationId": "factor",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/factor_fields"
+                        }
+                    }
+                ],
+                "tags": [
+                    "sympy"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Questicon Validation API",
+        "version": "1",
+        "description": "Questicon Validation API"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "sympy",
+            "description": "Sympy Validaiton API"
+        }
+    ],
+    "definitions": {
+        "factor_fields": {
+            "required": [
+                "student_response"
+            ],
+            "properties": {
+                "student_response": {
+                    "type": "string",
+                    "description": "student answer"
+                }
+            },
+            "type": "object"
+        },
+        "result_model": {
+            "properties": {
+                "result": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "compare_fields": {
+            "required": [
+                "student_response",
+                "valid_response"
+            ],
+            "properties": {
+                "student_response": {
+                    "type": "string",
+                    "description": "student answer"
+                },
+                "valid_response": {
+                    "type": "string",
+                    "description": "valid answer"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    }
+}

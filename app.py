@@ -4,7 +4,10 @@ import sympy
 
 
 app = Flask(__name__)
-api = Api(app, version='0.1', title='Questicon Validation API',
+# app.config['SERVER_NAME'] = "localhost:5000"
+# print(app.config)
+
+api = Api(app, version='1', title='Questicon Validation API',
           description='Questicon Validation API')
 ns = api.namespace("sympy", description="Sympy Validaiton API")
 
@@ -31,10 +34,10 @@ result = api.model(
 )
 
 
-@ns.route('/factor',endpoint='factor-endpoint')
+@ns.route('/factor', endpoint='factor-endpoint')
 class FactorClass(Resource):
-    @api.doc(id='factor', body=factor_request)
-    @api.response(200, 'Success', result)
+    @ns.doc(id='factor', body=factor_request)
+    @ns.response(200, 'Success', result)
     def post(self):
         request_data = api.payload
         student_answer = None
@@ -48,10 +51,10 @@ class FactorClass(Resource):
         return jsonify({'result': '{}'.format(student_answer)})
 
 
-@ns.route('/compare',endpoint='compare-endpoint')
+@ns.route('/compare', endpoint='compare-endpoint')
 class CompareClass(Resource):
-    @api.doc(id='compare',body=compare_request)
-    @api.response(200, 'Success', result)
+    @ns.doc(id='compare', body=compare_request)
+    @ns.response(200, 'Success', result)
     def post(self):
         request_data = api.payload
         student_answer = None
